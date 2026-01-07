@@ -1,0 +1,14 @@
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\PortalPowerBI.exe
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\apps.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\appsettings.Development.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\appsettings.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\usuarios.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\PortalPowerBI.dll
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\PortalPowerBI.deps.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\PortalPowerBI.runtimeconfig.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\PortalPowerBI.pdb
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\Microsoft.Identity.Client.dll
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\Microsoft.PowerBI.Api.dll
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\Microsoft.Rest.ClientRuntime.dll
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\dist\Newtonsoft.Json.dll

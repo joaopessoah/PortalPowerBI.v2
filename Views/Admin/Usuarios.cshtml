@@ -1,0 +1,117 @@
+@using PortalPowerBI.Services
+@model List<Usuario>
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-white">Gerenciar <span style="color: var(--neon-purple)">Usuários</span></h2>
+            <p class="text-muted small">Controle de acesso e permissões.</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCriar">
+            <i class="bi bi-person-plus me-2"></i> Novo Usuário
+        </button>
+    </div>
+
+    <div class="collapse mb-5" id="collapseCriar">
+        <div class="card p-4 border-0 position-relative">
+            <form action="/Admin/CriarUsuario" method="post" id="formCriacao">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-3">
+                        <label class="form-label text-secondary small fw-bold">NOME</label>
+                        <input type="text" name="nome" class="form-control" placeholder="Ex: Maria Silva" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-secondary small fw-bold">LOGIN (Apelido)</label>
+                        <input type="text" name="login" class="form-control" placeholder="Ex: maria.silva" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label text-secondary small fw-bold">E-MAIL</label>
+                        <input type="email" name="email" class="form-control" placeholder="nome@empresa.com">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label text-secondary small fw-bold">SENHA INICIAL</label>
+                        <input type="text" name="senha" class="form-control font-monospace text-warning" value="123456" required>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" name="isAdmin" value="true" id="checkAdmin">
+                            <label class="form-check-label text-white" for="checkAdmin">Admin?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="text-muted mb-3 small fw-bold text-uppercase">Permissões de Acesso</h6>
+                <div class="table-responsive border border-secondary border-opacity-25 rounded mb-4" style="max-height: 250px;">
+                    <table class="table table-sm table-hover mb-0 bg-transparent">
+                        </table>
+                </div>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="collapse" data-bs-target="#collapseCriar">Cancelar</button>
+                    <button type="submit" class="btn btn-primary px-4">Salvar Usuário</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card p-0 overflow-hidden card-light-table">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 text-nowrap">
+                <thead style="background: #f3f4f6;">
+                    <tr>
+                        <th class="ps-4 py-3">Nome</th>
+                        <th>Login / E-mail</th>
+                        <th>Status</th>
+                        <th>Perfil</th>
+                        <th>Acessos</th>
+                        <th class="text-end pe-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3 text-secondary border border-secondary border-opacity-25" style="width: 40px; height: 40px;">
+                                        <i class="bi bi-person-fill fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">@user.Nome</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="small">
+                                <div class="fw-bold">@user.Login</div>
+                                <div class="small">@user.Email</div>
+                            </td>
+                            <td>
+                                @if (user.Ativo) { <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3">Ativo</span> }
+                                else { <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3">Inativo</span> }
+                            </td>
+                            <td>
+                                @if (user.IsAdmin) { <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25">Admin</span> }
+                                else { <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25">Padrão</span> }
+                            </td>
+                            <td>
+                                <span class="d-inline-flex align-items-center px-2 py-1 rounded border border-secondary border-opacity-25 small">
+                                    <i class="bi bi-bar-chart me-2"></i> @user.Acessos.Count
+                                </span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group">
+                                    <a href="/Admin/EditarUsuario?login=@user.Login" class="btn btn-sm btn-outline-primary border-0" title="Editar"><i class="bi bi-pencil-square fs-6"></i></a>
+                                    <a href="/Admin/AlternarStatus?login=@user.Login" class="btn btn-sm btn-outline-warning border-0" title="Bloquear"><i class="bi bi-shield-lock fs-6"></i></a>
+                                    @if (user.Login != "admin") {
+                                        <a href="/Admin/ExcluirUsuario?login=@user.Login" class="btn btn-sm btn-outline-danger border-0" title="Excluir" onclick="return confirm('Excluir este usuário?');"><i class="bi bi-trash fs-6"></i></a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>

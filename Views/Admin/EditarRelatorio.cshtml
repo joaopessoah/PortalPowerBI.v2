@@ -1,0 +1,69 @@
+@using PortalPowerBI.Services
+@model AppInfo
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0 card-light-table">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Editar Conteúdo BI</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/Admin/SalvarEdicaoRelatorio" method="post">
+                        <input type="hidden" name="idOriginal" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nome de Exibição</label>
+                            <input type="text" name="nome" class="form-control" value="@Model.Nome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <input type="text" name="descricao" class="form-control" value="@Model.Descricao">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Tipo de Conteúdo: </label>
+                            @if (Model.ContentType == PortalPowerBI.Services.ContentTypes.App) {
+                                <span class="badge bg-info text-white ms-2">Aplicativo</span>
+                            } else {
+                                <span class="badge bg-primary text-white ms-2">Relatório</span>
+                            }
+                            <input type="hidden" name="contentType" value="@Model.ContentType" />
+                        </div>
+
+
+                        <div class="row g-3 mb-4">
+                             <div class="col-md-4">
+                                <label class="form-label fw-bold">ID PRINCIPAL</label>
+                                <input type="text" name="idNovo" class="form-control font-monospace" value="@Model.Id" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">WORKSPACE ID</label>
+                                <input type="text" name="groupId" class="form-control font-monospace" value="@Model.GroupId">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">REPORT EMBED ID</label>
+                                <input type="text" name="reportEmbedId" class="form-control font-monospace" value="@Model.ReportEmbedId" required>
+                                <div class="form-text">ID do Report que será exibido.</div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning py-2 mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="requerRls" value="true" id="checkRlsEdit" @(Model.RequerRls ? "checked" : "")>
+                                <label class="form-check-label fw-bold" for="checkRlsEdit">
+                                    Este conteúdo exige RLS?
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/Admin/Relatorios" class="btn btn-outline-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

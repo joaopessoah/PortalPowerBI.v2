@@ -1,0 +1,47 @@
+[
+  {
+    "Id": "79ee49e3-32ea-4216-930f-089e7494bd09",
+    "GroupId": "3078077d-18b1-41c4-96d4-6319dc06064e",
+    "Nome": "Comercial",
+    "Descricao": "Origem dos Dados: CRM",
+    "RequerRls": true,
+    "ContentType": "Report",
+    "ReportEmbedId": "79ee49e3-32ea-4216-930f-089e7494bd09"
+  },
+  {
+    "Id": "aad36ea6-d5a0-49c7-9636-f828a3ed16ed",
+    "GroupId": "fdd5f2d2-ff29-4ca0-9f13-d4df9fee6c5a",
+    "Nome": "Projetos - VMO",
+    "Descricao": "Indicadores Operacionais",
+    "RequerRls": false,
+    "ContentType": "Report",
+    "ReportEmbedId": "aad36ea6-d5a0-49c7-9636-f828a3ed16ed"
+  },
+  {
+    "Id": "9243ed92-51a8-439c-8f15-bb78e4070d59",
+    "GroupId": "fdd5f2d2-ff29-4ca0-9f13-d4df9fee6c5a",
+    "Nome": "Customer Success",
+    "Descricao": "Atividades do time de CS",
+    "RequerRls": false,
+    "ContentType": "Report",
+    "ReportEmbedId": "9243ed92-51a8-439c-8f15-bb78e4070d59"
+  },
+  {
+    "Id": "8adc350f-19ab-408d-b70c-ebeafbb65c26",
+    "GroupId": "fdd5f2d2-ff29-4ca0-9f13-d4df9fee6c5a",
+    "Nome": "DRE",
+    "Descricao": "DRE de todas as empresas do grupo Benner",
+    "RequerRls": false,
+    "ContentType": "Report",
+    "ReportEmbedId": "8adc350f-19ab-408d-b70c-ebeafbb65c26"
+  },
+  {
+    "Id": "1a026c66-117a-4adf-bc60-8de64da4b4d8",
+    "GroupId": "fdd5f2d2-ff29-4ca0-9f13-d4df9fee6c5a",
+    "Nome": "RH BENNER",
+    "Descricao": "indicadores do rh da benner",
+    "RequerRls": true,
+    "ContentType": "Report",
+    "ReportEmbedId": "1a026c66-117a-4adf-bc60-8de64da4b4d8"
+  }
+]

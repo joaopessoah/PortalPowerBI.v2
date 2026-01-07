@@ -1,0 +1,80 @@
+﻿@using PortalPowerBI.Services
+@model List<AppInfo> 
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold mb-0 text-white">Meus <span style="color: #0ea5e9;">Dashboards</span></h2>
+            <p class="text-muted small mb-0">Selecione um painel para visualizar os indicadores.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <span class="badge rounded-pill px-3 py-2" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border: 1px solid rgba(14, 165, 233, 0.2);">
+                <i class="bi bi-person-check me-1"></i> @ViewBag.NomeUsuario
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @if (Model.Count == 0)
+        {
+            <div class="col-12">
+                <div class="card p-5 text-center" style="border-style: dashed; border-color: rgba(255,255,255,0.1); background: transparent !important;">
+                    <i class="bi bi-folder-x fs-1 text-muted mb-3"></i>
+                    <h5 class="text-muted">Nenhum dashboard liberado.</h5>
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="card h-100 border-0 position-relative overflow-hidden group-hover-effect">
+                        
+                        <div class="position-absolute top-0 end-0 p-5 rounded-circle" 
+                             style="background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%); transform: translate(30%, -30%);">
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div class="rounded-3 p-3 d-flex align-items-center justify-content-center" 
+                                     style="width: 50px; height: 50px; background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
+                                    
+                                    @if (item.ContentType == PortalPowerBI.Services.ContentTypes.App)
+                                    {
+                                        <i class="bi bi-rocket-takeoff-fill fs-4"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-bar-chart-fill fs-4"></i>
+                                    }
+                                    
+                                </div>
+                                <span class="badge bg-dark border border-secondary text-secondary rounded-pill px-3">
+                                    @if (item.ContentType == PortalPowerBI.Services.ContentTypes.App) {
+                                        <span>APP</span>
+                                    } else {
+                                        <span>REPORT</span>
+                                    }
+                                </span>
+                            </div>
+
+                            <h5 class="card-title fw-bold mb-2" style="color: #fff;">@item.Nome</h5>
+                            
+                            <p class="card-text small flex-grow-1" style="color: #94a3b8;">
+                                @(string.IsNullOrEmpty(item.Descricao) ? "Painel de indicadores estratégicos." : item.Descricao)
+                            </p>
+
+                            <a href="/Home/Visualizar?id=@item.Id" class="btn btn-primary w-100 mt-3">
+                                <span>Abrir Painel</span> <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

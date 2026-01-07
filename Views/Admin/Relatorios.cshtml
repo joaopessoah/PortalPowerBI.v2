@@ -1,0 +1,164 @@
+@using PortalPowerBI.Services
+@model List<AppInfo>
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-white">Gerenciar <span style="color: var(--neon-blue)">Conteúdo BI</span></h2>
+            <p class="text-muted small">Adicione Apps ou Relatórios individuais.</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRelatorio">
+            <i class="bi bi-plus-lg me-2"></i> Adicionar Item
+        </button>
+    </div>
+
+    <div class="collapse mb-5" id="collapseRelatorio">
+        <div class="card p-4 border-0">
+             <h5 class="mb-4 text-white"><i class="bi bi-plus-circle-fill me-2 text-primary"></i>Novo Item de Conteúdo</h5>
+             
+             <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="report-tab" data-bs-toggle="tab" data-bs-target="#tab-report" type="button" role="tab" aria-controls="tab-report" aria-selected="true">Relatório (Dashboard)</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="app-tab" data-bs-toggle="tab" data-bs-target="#tab-app" type="button" role="tab" aria-controls="tab-app" aria-selected="false">Aplicativo (App)</button>
+                </li>
+             </ul>
+
+             <div class="tab-content" id="myTabContent">
+                
+                <div class="tab-pane fade show active" id="tab-report" role="tabpanel" aria-labelledby="report-tab">
+                    <form action="/Admin/CriarRelatorio" method="post">
+                        <input type="hidden" name="type" value="@PortalPowerBI.Services.ContentTypes.Report" />
+                        
+                        <h6 class="text-white mb-3">Detalhes do Relatório</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">NOME EXIBIÇÃO</label>
+                                <input type="text" name="nome" class="form-control" placeholder="Ex: Financeiro Trimestral" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">DESCRIÇÃO</label>
+                                <input type="text" name="descricao" class="form-control" placeholder="Resumo anual de vendas">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">REPORT ID</label>
+                                <input type="text" name="id" class="form-control font-monospace text-info small" placeholder="Report ID do item" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">WORKSPACE ID (GROUP)</label>
+                                <input type="text" name="groupId" class="form-control font-monospace text-info small" placeholder="Workspace ID" required>
+                            </div>
+                            <input type="hidden" name="reportEmbedId" value="" />
+                        </div>
+                        
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" name="requerRls" value="true" id="checkRlsReport">
+                            <label class="form-check-label text-white" for="checkRlsReport">Ativar Row Level Security (RLS)?</label>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary px-4">Salvar Relatório</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="tab-app" role="tabpanel" aria-labelledby="app-tab">
+                    <form action="/Admin/CriarRelatorio" method="post">
+                         <input type="hidden" name="type" value="@PortalPowerBI.Services.ContentTypes.App" />
+
+                        <h6 class="text-white mb-3">Detalhes do Aplicativo</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">NOME EXIBIÇÃO</label>
+                                <input type="text" name="nome" class="form-control" placeholder="Ex: App Call Center" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">DESCRIÇÃO</label>
+                                <input type="text" name="descricao" class="form-control" placeholder="Conjunto de dashboards e relatórios">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">APP ID</label>
+                                <input type="text" name="id" class="form-control font-monospace text-info small" placeholder="App ID da URL" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small fw-bold">REPORT EMBED ID (Landing Page)</label>
+                                <input type="text" name="reportEmbedId" class="form-control font-monospace text-info small" placeholder="Report ID do item principal para embedding" required>
+                            </div>
+                            <input type="hidden" name="groupId" value="" />
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" name="requerRls" value="true" id="checkRlsApp">
+                            <label class="form-check-label text-white" for="checkRlsApp">Ativar Row Level Security (RLS)?</label>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary px-4">Salvar Aplicativo</button>
+                        </div>
+                    </form>
+                </div>
+
+             </div>
+
+             <div class="mt-4 text-end">
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapseRelatorio">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card p-0 overflow-hidden card-light-table">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 text-nowrap">
+                <thead style="background: #f3f4f6;">
+                    <tr>
+                        <th class="ps-4 py-3">Nome</th>
+                        <th>IDs Técnicos</th>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Segurança</th>
+                        <th class="text-end pe-4">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <strong class="d-block mb-1">@item.Nome</strong>
+                                <span class="small">@item.Descricao</span>
+                            </td>
+                            <td class="font-monospace small">
+                                <div class="d-flex align-items-center mb-1"><span class="badge bg-secondary text-white me-2">ID</span> @item.Id</div>
+                                <div class="d-flex align-items-center"><span class="badge bg-secondary text-white me-2">Embed</span> @item.ReportEmbedId</div>
+                            </td>
+                            <td class="text-center">
+                                @if (item.ContentType == PortalPowerBI.Services.ContentTypes.App) {
+                                    <span class="badge bg-info text-white">Aplicativo</span>
+                                } else {
+                                    <span class="badge bg-primary text-white">Relatório</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if(item.RequerRls) {
+                                    <span class="badge bg-warning text-dark border border-warning">RLS ATIVO</span>
+                                } else {
+                                    <span class="badge bg-light text-secondary border border-secondary">Público</span>
+                                }
+                            </td>
+                            <td class="text-end pe-4">
+                                <a href="/Admin/EditarRelatorio?id=@item.Id" class="btn btn-sm btn-outline-primary border-0 me-1"><i class="bi bi-pencil-square fs-6"></i></a>
+                                
+                                <a href="/Admin/ExcluirRelatorio?id=@item.Id" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('Confirmar exclusão?')"><i class="bi bi-trash fs-6"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

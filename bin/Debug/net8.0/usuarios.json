@@ -1,0 +1,48 @@
+[
+  {
+    "Login": "admin",
+    "Email": "bibenner@benner.com.br",
+    "Senha": "123",
+    "Nome": "Super Admin",
+    "IsAdmin": true,
+    "Ativo": true,
+    "PrecisaTrocarSenha": false,
+    "Acessos": [
+      {
+        "ReportId": "79ee49e3-32ea-4216-930f-089e7494bd09",
+        "Role": "master"
+      },
+      {
+        "ReportId": "aad36ea6-d5a0-49c7-9636-f828a3ed16ed",
+        "Role": null
+      },
+      {
+        "ReportId": "9243ed92-51a8-439c-8f15-bb78e4070d59",
+        "Role": null
+      },
+      {
+        "ReportId": "8adc350f-19ab-408d-b70c-ebeafbb65c26",
+        "Role": null
+      }
+    ]
+  },
+  {
+    "Login": "severino",
+    "Email": "severino@benner.com.br",
+    "Senha": "123456",
+    "Nome": "Severino",
+    "IsAdmin": false,
+    "Ativo": true,
+    "PrecisaTrocarSenha": false,
+    "Acessos": [
+      {
+        "ReportId": "79ee49e3-32ea-4216-930f-089e7494bd09",
+        "Role": "canais"
+      },
+      {
+        "ReportId": "1a026c66-117a-4adf-bc60-8de64da4b4d8",
+        "Role": "master"
+      }
+    ]
+  }
+]

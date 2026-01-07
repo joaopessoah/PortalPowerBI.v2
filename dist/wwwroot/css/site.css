@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-dark: #0f172a;
+    --glass-surface: rgba(30, 41, 59, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --neon-blue: #0ea5e9;
+    --neon-purple: #8b5cf6;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --sidebar-width: 260px; /* Largura fixa da barra lateral */
+}
+
+body {
+    background-color: var(--bg-dark) !important;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%) !important;
+    background-attachment: fixed;
+    color: var(--text-main) !important;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+/* --- LAYOUT WRAPPER (ESTRUTURA PRINCIPAL) --- */
+#wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    min-height: 100vh;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: var(--sidebar-width);
+    margin-left: -260px; /* Escondido por padrão no Mobile */
+    background: var(--glass-surface);
+    border-right: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: margin .25s ease-out;
+    position: fixed; /* Fixo no mobile */
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    transition: all .25s ease-out;
+}
+
+/* --- COMPORTAMENTO DESKTOP (Telas maiores que 768px) --- */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0; /* Mostra a barra lateral */
+        position: sticky; /* Fixo na lateral enquanto rola */
+        top: 0;
+        height: 100vh;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+    
+    /* Esconde o botão hambúrguer no desktop */
+    .mobile-nav-toggle {
+        display: none !important;
+    }
+}
+
+/* --- COMPORTAMENTO MOBILE (Quando a classe 'toggled' é ativada pelo JS) --- */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0; /* Traz o menu para a tela */
+}
+
+/* Overlay escuro quando menu abre no mobile */
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+}
+
+#wrapper.toggled .overlay {
+    display: block;
+}
+
+
+/* --- ESTILIZAÇÃO DO MENU --- */
+.sidebar-heading {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.list-group-item:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding-left: 1.5rem; /* Efeito de slide */
+}
+
+.list-group-item.active {
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.2), transparent);
+    color: #fff;
+    border-left: 4px solid var(--neon-blue);
+}
+
+
+/* --- ELEMENTOS GERAIS (Cards, Tables, Forms) --- */
+.card {
+    background-color: rgba(30, 41, 59, 0.6) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+}
+
+.card-light-table {
+    background-color: #fff !important;
+    color: #333 !important;
+}
+.card-light-table th, .card-light-table td, .card-light-table strong {
+    color: #333 !important;
+}
+
+/* Inputs */
+.form-control, .form-select {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: #fff !important;
+}
+.form-control:focus {
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+    border-color: var(--neon-blue) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
