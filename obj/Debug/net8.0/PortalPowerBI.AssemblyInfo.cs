@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortalPowerBI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11a9127370a35421d9b3d2e97e5cdf01a7e77504")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad423631b896aad64d6d950439a410aed1aad241")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortalPowerBI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortalPowerBI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
