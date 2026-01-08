@@ -2,57 +2,162 @@
 @model EmbedConfig
 
 @{
-    Layout = "_Layout";
-    ViewData["Title"] = @Model.ReportName;
+    Layout = null;
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3 pt-2">
-    <h4 class="text-white mb-0 fw-bold text-truncate"><i class="bi bi-bar-chart-fill me-2 text-primary"></i>@Model.ReportName</h4>
-    <a href="/Home/Index" class="btn btn-outline-secondary btn-sm px-3 text-nowrap">
-        <i class="bi bi-arrow-left me-1"></i> Voltar
-    </a>
-</div>
-
-<div id="embed-container" class="w-100 rounded-3 overflow-hidden shadow-lg position-relative" 
-     style="background-color: #ffffff; border: 1px solid var(--glass-border); height: 85vh;">
+<!DOCTYPE html>
+<html lang="pt-br" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@Model.ReportName - Visualização</title>
     
-    <div class="d-flex justify-content-center align-items-center h-100 w-100 position-absolute" id="loading-state">
-        <div class="text-center">
-            <div class="spinner-border text-primary mb-3" role="status"></div>
-            <h6 class="text-secondary fw-light">Carregando painel...</h6>
-        </div>
-    </div>
-</div>
+    <link rel="icon" href="~/images/B_de_benner.png" />
 
-<script src="/js/powerbi.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var embedContainer = document.getElementById('embed-container');
-        var loadingState = document.getElementById('loading-state');
-        
-        if (typeof powerbi === 'undefined') {
-            embedContainer.innerHTML = "<div class='d-flex h-100 align-items-center justify-content-center text-danger'>Erro: Biblioteca JS não carregou.</div>";
-            return;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        body {
+            overflow: hidden;
+            background-image: none;
+            background-color: #0f172a;
         }
 
-        var config = {
-            type: 'report',
-            tokenType: 1, 
-            accessToken: '@Model.EmbedToken',
-            embedUrl: '@Model.EmbedUrl',
-            id: '@Model.ReportId',
-            permissions: 7,
-            settings: {
-                filterPaneEnabled: true,
-                navContentPaneEnabled: true,
-                background: 0 // 0 = Padrão (Opaco/Branco), 1 = Transparente
-            }
-        };
+        .top-bar {
+            height: 60px;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+        }
 
-        try {
-            var report = powerbi.embed(embedContainer, config);
-            report.on("loaded", function () { loadingState.style.display = 'none'; });
-            report.on("error", function (e) { console.error(e); });
-        } catch (e) { console.error(e); }
-    });
-</script>
+        .report-container {
+            height: calc(100vh - 60px);
+            width: 100%;
+            position: relative;
+            background-color: #ffffff;
+        }
+
+        #embed-container iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body class="h-100">
+
+    <div class="d-flex flex-column h-100">
+        
+        <div class="top-bar justify-content-between">
+            <div class="d-flex align-items-center">
+                <a href="/Home/Index" class="btn btn-outline-secondary btn-sm me-3 border-0 text-white opacity-75 hover-opacity-100">
+                    <i class="bi bi-arrow-left fs-5"></i>
+                </a>
+                
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center me-2" style="width: 32px; height: 32px;">
+                        <i class="bi bi-bar-chart-fill text-white" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div>
+                        <h6 class="text-white mb-0 fw-semibold">@Model.ReportName</h6>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="toggleFullScreen()" class="btn btn-sm text-secondary hover-text-white" title="Tela Cheia">
+                <i class="bi bi-arrows-fullscreen"></i>
+            </button>
+        </div>
+
+        <div id="embed-container" class="report-container">
+            <div id="loading-state" class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center bg-white" style="z-index: 10;">
+                <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                <h6 class="text-muted fw-normal animate-pulse">Carregando painel...</h6>
+                <img src="~/images/logo-benner.png" alt="Benner" class="mt-4 opacity-50 grayscale" style="max-height: 20px; filter: grayscale(100%);">
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/powerbi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var embedContainer = document.getElementById('embed-container');
+            var loadingState = document.getElementById('loading-state');
+            
+            if (typeof powerbi === 'undefined') {
+                embedContainer.innerHTML = `
+                    <div class='d-flex h-100 align-items-center justify-content-center text-danger flex-column'>
+                        <i class='bi bi-exclamation-triangle fs-1 mb-2'></i>
+                        <div>Erro: Biblioteca Power BI Javascript não carregada.</div>
+                    </div>`;
+                return;
+            }
+
+            var config = {
+                type: 'report',
+                tokenType: 1, 
+                accessToken: '@Model.EmbedToken',
+                embedUrl: '@Model.EmbedUrl',
+                id: '@Model.ReportId',
+                permissions: 7, 
+                settings: {
+                    // --- ALTERAÇÃO AQUI: Desabilitando as barras ---
+                    filterPaneEnabled: false,      // Remove a barra cinza da direita (Filtros)
+                    navContentPaneEnabled: false,  // Remove a barra inferior (Abas das páginas)
+                    
+                    localeSettings: { language: "pt-BR", formatLocale: "pt-BR" },
+                    layoutType: 0,
+                    
+                    // Garantia extra para versões mais recentes da API
+                    panes: {
+                        filters: {
+                            visible: false
+                        },
+                        pageNavigation: {
+                            visible: false
+                        }
+                    }
+                }
+            };
+
+            try {
+                var report = powerbi.embed(embedContainer, config);
+
+                report.on("loaded", function () {
+                    loadingState.style.transition = "opacity 0.5s ease";
+                    loadingState.style.opacity = "0";
+                    setTimeout(() => { loadingState.style.display = 'none'; }, 500);
+                });
+
+                report.on("error", function (event) {
+                    console.error("Erro no Power BI:", event.detail);
+                });
+            } catch (e) {
+                console.error("Exceção ao tentar embedar:", e);
+            }
+        });
+    </script>
+</body>
+</html>

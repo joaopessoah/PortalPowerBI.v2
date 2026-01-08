@@ -1,14 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Benner BI</title>
+    <title>@ViewData["Title"] - Benner</title>
     
-    <!-- Ícone da Aba (Mantido do passo anterior) -->
     <link rel="icon" href="~/images/B_de_benner.png" />
 
-    <!-- Fonte Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,10 +22,8 @@
 
     <div class="d-flex" id="wrapper">
         
-        <!-- Overlay para mobile -->
         <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-        <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <div class="sidebar-heading">
                 <img src="~/images/logo-benner.png" alt="Benner" style="max-height: 40px;" class="img-fluid">
@@ -35,10 +34,8 @@
                     <i class="bi bi-speedometer2 me-2"></i> Dashboard
                 </a>
 
-                @using Microsoft.AspNetCore.Http
-                @inject IHttpContextAccessor HttpContextAccessor
                 @{
-                    var login = HttpContextAccessor.HttpContext.Session.GetString("User");
+                    var login = HttpContextAccessor.HttpContext?.Session.GetString("User");
                     bool isAdmin = false;
                     if(login != null) {
                         var user = PortalPowerBI.Services.MockDb.Usuarios.FirstOrDefault(u => u.Login == login);
@@ -48,7 +45,7 @@
 
                 @if(isAdmin)
                 {
-                    <div class="mt-4 mb-2 px-3 text-uppercase small text-muted fw-bold" style="font-size: 0.75rem;">Admin Zone</div>
+                    <div class="mt-4 mb-2 px-3 text-uppercase small white text" style="font-size: 0.95rem;">Admin Zone</div>
                     <a href="/Admin/Usuarios" class="list-group-item list-group-item-action">
                         <i class="bi bi-people me-2"></i> Usuários
                     </a>
@@ -58,7 +55,6 @@
                 }
             </div>
 
-            <!-- Rodapé da Sidebar (Usuário) -->
             <div class="mt-auto p-3 border-top border-secondary border-opacity-25">
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,13 +66,11 @@
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="/Home/TrocarSenha">Alterar Senha</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="/Home/Login">Sair</a></li>
-                    </ul>
+                        <li><a class="dropdown-item text-danger" href="/Home/Logout">Sair</a></li> </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Conteúdo da Página -->
         <div id="page-content-wrapper">
             
             <nav class="navbar navbar-dark bg-transparent border-bottom border-secondary border-opacity-10 mb-3 mobile-nav-toggle">

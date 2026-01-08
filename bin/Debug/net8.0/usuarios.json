@@ -9,10 +9,6 @@
     "PrecisaTrocarSenha": false,
     "Acessos": [
       {
-        "ReportId": "79ee49e3-32ea-4216-930f-089e7494bd09",
-        "Role": "master"
-      },
-      {
         "ReportId": "aad36ea6-d5a0-49c7-9636-f828a3ed16ed",
         "Role": null
       },
@@ -23,6 +19,10 @@
       {
         "ReportId": "8adc350f-19ab-408d-b70c-ebeafbb65c26",
         "Role": null
+      },
+      {
+        "ReportId": "1a026c66-117a-4adf-bc60-8de64da4b4d8",
+        "Role": "Benner Sa\u00FAde"
       }
     ]
   },
@@ -48,11 +48,16 @@
   {
     "Login": "teste.teste",
     "Email": "teste@benner.com.br",
-    "Senha": "admin123",
+    "Senha": "admin12345",
     "Nome": "teste",
     "IsAdmin": false,
     "Ativo": true,
     "PrecisaTrocarSenha": false,
-    "Acessos": []
+    "Acessos": [
+      {
+        "ReportId": "8adc350f-19ab-408d-b70c-ebeafbb65c26",
+        "Role": null
+      }
+    ]
   }
 ]
