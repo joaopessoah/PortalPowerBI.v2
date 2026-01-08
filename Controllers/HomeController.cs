@@ -173,8 +173,8 @@ namespace PortalPowerBI.Controllers
                 }
 
                 var embedConfig = await _pbiService.GetEmbedTokenAsync(
-                    conteudoInfo.ReportEmbedId, 
-                    conteudoInfo.GroupId, 
+                    conteudoInfo.ReportEmbedId ?? "", 
+                    conteudoInfo.GroupId ?? "", 
                     usuarioRls, 
                     roleRls
                 );
