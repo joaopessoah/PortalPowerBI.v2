@@ -1,80 +1,90 @@
-﻿@using PortalPowerBI.Services
-@model List<AppInfo> 
-@{
-    ViewData["Title"] = "Dashboard";
+﻿@{
+    ViewData["Title"] = "Meus Dashboards";
 }
 
-<div class="container-fluid py-4">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <div>
-            <h2 class="fw-bold mb-0 text-white">Meus <span style="color: #0ea5e9;">Dashboards</span></h2>
-            <p class="text-muted small mb-0">Selecione um painel para visualizar os indicadores.</p>
-        </div>
-        <div class="d-flex gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border: 1px solid rgba(14, 165, 233, 0.2);">
-                <i class="bi bi-person-check me-1"></i> @ViewBag.NomeUsuario
-            </span>
+<style>
+    /* Estilo Específico para os Cards desta página */
+    .dashboard-card {
+        background: rgba(30, 41, 59, 0.7); /* Fundo escuro semi-transparente */
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        overflow: hidden;
+        height: 100%;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        border-color: #0ea5e9; /* Cor de destaque (Azul Benner) */
+    }
+
+    .card-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(14, 165, 233, 0.15); /* Fundo sutil do ícone */
+        color: #0ea5e9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        color: #f1f5f9;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+        color: #94a3b8; /* Text-secondary */
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+</style>
+
+<div class="py-4">
+    <!-- Cabeçalho da Página -->
+    <div class="row mb-5 align-items-end">
+        <div class="col">
+            <h6 class="text-uppercase text-secondary fw-bold mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">Bem-vindo</h6>
+            <h2 class="text-white fw-bold mb-0">Meus Dashboards</h2>
         </div>
     </div>
 
+    <!-- Grid de Relatórios -->
     <div class="row g-4">
-        @if (Model.Count == 0)
+        @if (PortalPowerBI.Services.MockDb.Relatorios != null && PortalPowerBI.Services.MockDb.Relatorios.Any())
         {
-            <div class="col-12">
-                <div class="card p-5 text-center" style="border-style: dashed; border-color: rgba(255,255,255,0.1); background: transparent !important;">
-                    <i class="bi bi-folder-x fs-1 text-muted mb-3"></i>
-                    <h5 class="text-muted">Nenhum dashboard liberado.</h5>
+            @foreach (var app in PortalPowerBI.Services.MockDb.Relatorios)
+            {
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                    <a href="/Home/Visualizar?reportId=@app.Id" class="dashboard-card p-4">
+                        <div class="card-icon-wrapper">
+                            <i class="bi bi-bar-chart-fill"></i>
+                        </div>
+                        <h5 class="card-title">@app.Name</h5>
+                        <p class="card-desc mb-0">
+                            @(string.IsNullOrEmpty(app.Description) ? "Clique para acessar os indicadores e métricas deste painel." : app.Description)
+                        </p>
+                    </a>
                 </div>
-            </div>
+            }
         }
         else
         {
-            @foreach (var item in Model)
-            {
-                <div class="col-12 col-md-6 col-xl-4">
-                    <div class="card h-100 border-0 position-relative overflow-hidden group-hover-effect">
-                        
-                        <div class="position-absolute top-0 end-0 p-5 rounded-circle" 
-                             style="background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%); transform: translate(30%, -30%);">
-                        </div>
-                        
-                        <div class="card-body d-flex flex-column p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-4">
-                                <div class="rounded-3 p-3 d-flex align-items-center justify-content-center" 
-                                     style="width: 50px; height: 50px; background: rgba(14, 165, 233, 0.1); color: #0ea5e9;">
-                                    
-                                    @if (item.ContentType == PortalPowerBI.Services.ContentTypes.App)
-                                    {
-                                        <i class="bi bi-rocket-takeoff-fill fs-4"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="bi bi-bar-chart-fill fs-4"></i>
-                                    }
-                                    
-                                </div>
-                                <span class="badge bg-dark border border-secondary text-secondary rounded-pill px-3">
-                                    @if (item.ContentType == PortalPowerBI.Services.ContentTypes.App) {
-                                        <span>APP</span>
-                                    } else {
-                                        <span>REPORT</span>
-                                    }
-                                </span>
-                            </div>
-
-                            <h5 class="card-title fw-bold mb-2" style="color: #fff;">@item.Nome</h5>
-                            
-                            <p class="card-text small flex-grow-1" style="color: #94a3b8;">
-                                @(string.IsNullOrEmpty(item.Descricao) ? "Painel de indicadores estratégicos." : item.Descricao)
-                            </p>
-
-                            <a href="/Home/Visualizar?id=@item.Id" class="btn btn-primary w-100 mt-3">
-                                <span>Abrir Painel</span> <i class="bi bi-arrow-right ms-2"></i>
-                            </a>
-                        </div>
-                    </div>
+            <div class="col-12">
+                <div class="alert alert-warning bg-opacity-10 border-warning text-warning rounded-4">
+                    <i class="bi bi-exclamation-triangle me-2"></i> Nenhum relatório encontrado no sistema.
                 </div>
-            }
+            </div>
         }
     </div>
 </div>

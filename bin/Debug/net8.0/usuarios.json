@@ -44,5 +44,15 @@
         "Role": "master"
       }
     ]
+  },
+  {
+    "Login": "teste.teste",
+    "Email": "teste@benner.com.br",
+    "Senha": "admin123",
+    "Nome": "teste",
+    "IsAdmin": false,
+    "Ativo": true,
+    "PrecisaTrocarSenha": false,
+    "Acessos": []
   }
 ]

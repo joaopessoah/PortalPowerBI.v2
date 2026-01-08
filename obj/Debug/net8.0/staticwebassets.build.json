@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PAc625nfsicPrunhkflzoaFC9sJ7OC3VNep1lHWVA5o=",
+  "Hash": "E4cCUGdoCM24fcfoZivTfDhFXXsTcTPPsnfoxfJ1T88=",
   "Source": "PortalPowerBI",
   "BasePath": "_content/PortalPowerBI",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\joao.pessoa\\Desktop\\PortalPowerBI\\wwwroot\\images\\B_de_benner.png",
+      "SourceId": "PortalPowerBI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\joao.pessoa\\Desktop\\PortalPowerBI\\wwwroot\\",
+      "BasePath": "_content/PortalPowerBI",
+      "RelativePath": "images/B_de_benner.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\B_de_benner.png"
     },
     {
       "Identity": "C:\\Users\\joao.pessoa\\Desktop\\PortalPowerBI\\wwwroot\\images\\logo-benner.png",

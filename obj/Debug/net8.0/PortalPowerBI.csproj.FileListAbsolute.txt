@@ -44,3 +44,4 @@ C:\Users\joao.pessoa\Desktop\PortalPowerBI\bin\Debug\net8.0\dist\appsettings.jso
 C:\Users\joao.pessoa\Desktop\PortalPowerBI\bin\Debug\net8.0\dist\PortalPowerBI.deps.json
 C:\Users\joao.pessoa\Desktop\PortalPowerBI\bin\Debug\net8.0\dist\PortalPowerBI.runtimeconfig.json
 C:\Users\joao.pessoa\Desktop\PortalPowerBI\bin\Debug\net8.0\dist\usuarios.json
+C:\Users\joao.pessoa\Desktop\PortalPowerBI\obj\Debug\net8.0\PortalPowerBI.sourcelink.json
